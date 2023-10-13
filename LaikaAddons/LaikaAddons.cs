@@ -249,6 +249,9 @@ namespace LaikaAddons
                             hazardsScript.StartCoroutine(hazardsScript.Trigger());
                         }
 
+                        turnSignalScript.currentPos = 2;
+                        turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
+
                         StopAllFlashes();
                     }
                     else
@@ -314,6 +317,9 @@ namespace LaikaAddons
                         turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
                     }
 
+                    hazardsScript.currentPos = 1;
+                    hazardsScript.StartCoroutine(hazardsScript.Trigger());
+
                     StopAllFlashes();
                 }
 
@@ -334,6 +340,9 @@ namespace LaikaAddons
                         turnSignalScript.currentPos = 2;
                         turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
                     }
+
+                    hazardsScript.currentPos = 1;
+                    hazardsScript.StartCoroutine(hazardsScript.Trigger());
 
                     StopAllFlashes();
                 }
