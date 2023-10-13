@@ -187,8 +187,6 @@ namespace LaikaAddons
                 turnSignalLeverPositions[1] = orgTurnSignalScript.position[1];
                 turnSignalLeverPositions[2] = new Vector3(81.1f, -15, -90);
 
-                Console.Instance.Log(orgTurnSignalScript.position[0]);
-                Console.Instance.Log(orgTurnSignalScript.position[1]);
                 turnSignalScript.position = turnSignalLeverPositions;
 
                 Destroy(orgTurnSignalScript);
