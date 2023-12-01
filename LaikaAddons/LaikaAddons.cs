@@ -131,9 +131,9 @@ namespace LaikaAddons
             cigLighterObject = car.Find("CigLighter").gameObject;
             lightKnobObject = car.Find("gimballLock/WindowWipers").gameObject;
 
-            var cigLighterObj = Instantiate(LoadAsset("ciglighter", "cigLighter", ""));
-            var indicatorObj = Instantiate(LoadAsset("indicatorlever", "indicatorLever", ""));
-            var lightsKnob = Instantiate(LoadAsset("lightknob", "lightKnob", ""));
+            var cigLighterObj = Instantiate(LoadAsset<GameObject>("ciglighter", "cigLighter", "", ".prefab"));
+            var indicatorObj = Instantiate(LoadAsset<GameObject>("indicatorlever", "indicatorLever", "", ".prefab"));
+            var lightsKnob = Instantiate(LoadAsset<GameObject>("lightknob", "lightKnob", "", ".prefab"));
 
             if (GetToggleValue("CigLighterFix") == true)
             {
@@ -249,7 +249,7 @@ namespace LaikaAddons
                             hazardsScript.StartCoroutine(hazardsScript.Trigger());
                         }
 
-                        turnSignalScript.currentPos = 2;
+                        turnSignalScript.currentPos = 3;
                         turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
 
                         StopAllFlashes();
@@ -317,7 +317,7 @@ namespace LaikaAddons
                         turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
                     }
 
-                    hazardsScript.currentPos = 1;
+                    hazardsScript.currentPos = 2;
                     hazardsScript.StartCoroutine(hazardsScript.Trigger());
 
                     StopAllFlashes();
@@ -341,7 +341,7 @@ namespace LaikaAddons
                         turnSignalScript.StartCoroutine(turnSignalScript.Trigger());
                     }
 
-                    hazardsScript.currentPos = 1;
+                    hazardsScript.currentPos = 2;
                     hazardsScript.StartCoroutine(hazardsScript.Trigger());
 
                     StopAllFlashes();
@@ -637,6 +637,14 @@ namespace LaikaAddons
                 FindObjectOfType<LaikaAddons>().leftTurnSignalOn = FindObjectOfType<LaikaAddons>().rightTurnSignalOn = false;
                 FindObjectOfType<LaikaAddons>().StopAllFlashes();
             }
+            else if(currentPos == 3)
+            {
+                Stop(gameObject.transform.parent.gameObject);
+                currentPos = 0;
+                RotateTo(gameObject.transform.parent.gameObject, Hash("rotation", position[0], "islocal", true, "time", timeToComplete, "easetype", easeType));
+                FindObjectOfType<LaikaAddons>().leftTurnSignalOn = FindObjectOfType<LaikaAddons>().rightTurnSignalOn = false;
+                FindObjectOfType<LaikaAddons>().StopAllFlashes();
+            }
 
             yield return null;
         }
@@ -689,9 +697,9 @@ namespace LaikaAddons
         {
             if (currentPos == 0)
             {
-                iTween.Stop(gameObject.transform.parent.gameObject);
+                Stop(gameObject.transform.parent.gameObject);
                 currentPos = 1;
-                iTween.RotateTo(gameObject.transform.parent.gameObject, iTween.Hash(new object[8]
+                RotateTo(gameObject.transform.parent.gameObject, Hash(new object[8]
                 {
                     "rotation",
                     positionRotation[1],
@@ -707,9 +715,9 @@ namespace LaikaAddons
             }
             else if (currentPos == 1)
             {
-                iTween.Stop(gameObject.transform.parent.gameObject);
+                Stop(gameObject.transform.parent.gameObject);
                 currentPos = 0;
-                iTween.RotateTo(gameObject.transform.parent.gameObject, iTween.Hash(new object[8]
+                RotateTo(gameObject.transform.parent.gameObject, Hash(new object[8]
                 {
                     "rotation",
                     positionRotation[0],
@@ -721,6 +729,23 @@ namespace LaikaAddons
                     easeType
                 }));
                 GetComponent<AudioSource>().PlayOneShot(audioSample, 0.7f);
+                FindObjectOfType<LaikaAddons>().hazardsOn = false;
+            }
+            else if(currentPos == 2)
+            {
+                Stop(gameObject.transform.parent.gameObject);
+                currentPos = 0;
+                RotateTo(gameObject.transform.parent.gameObject, Hash(new object[8]
+                {
+                    "rotation",
+                    positionRotation[0],
+                    "islocal",
+                    true,
+                    "time",
+                    timeToComplete,
+                    "easetype",
+                    easeType
+                }));
                 FindObjectOfType<LaikaAddons>().hazardsOn = false;
             }
 
