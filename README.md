@@ -1,5 +1,7 @@
 # LaikaAddons
 
+[![](https://img.shields.io/github/downloads/Jalopy-Mods/LaikaAddons/total)](#)
+
 This mod adds a few more features to the Laika from Jalopy!
 
 ### Current features:
