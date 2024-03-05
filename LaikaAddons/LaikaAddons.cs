@@ -12,7 +12,7 @@ namespace LaikaAddons
         public override string ModName => "Laika Addons"; // The mod's name. This is shown in the mods list. Does not need to be unique.
         public override string ModAuthor => "Leaxx"; // The mod's author (you). Also shown in the mods list.
         public override string ModDescription => "Adds various features to the Laika for more immersive gameplay!"; // The mod's description. This is also shown in the mods list, upon clicking on "More Info".
-        public override string ModVersion => "1.0.0"; // The mod's version. Also shown in the mods list. If your mod is open-source on GitHub, make sure that you're using the same format as your release tags (for example, 1.0.0)
+        public override string ModVersion => "1.0.1"; // The mod's version. Also shown in the mods list. If your mod is open-source on GitHub, make sure that you're using the same format as your release tags (for example, 1.0.0)
         public override string GitHubLink => "https://github.com/Jalopy-Mods/LaikaAddons"; // If your mod is open-source on GitHub, you can link it here to allow for automatic update-checking in-game. It compares the current ModVersion with the tag of the latest release (ex. 1.0.0 compared with 1.0.1)
         public override WhenToInit WhenToInit => WhenToInit.InGame; // When should the mod's OnEnable/Awake/Start/Update functions be called?
 
@@ -101,7 +101,7 @@ namespace LaikaAddons
 
             commonMaterial = new Material(Shader.Find("Legacy Shaders/Diffuse"))
             {
-                color = new Color32(120, 120, 120, 255),
+                color = new Color32(150, 150, 150, 255),
                 mainTexture = PNGToTexture("TextureMap"),
                 name = "LaikaAddons_TextureMap"
             };
@@ -178,8 +178,8 @@ namespace LaikaAddons
 
                 lightsKnobScript.errorAudio = hazardsLogic.errorAudio;
 
-                turnSignalScript.startMaterial = commonMaterial;
-                turnSignalScript.glowMaterial = glowMaterial;
+                turnSignalScript.startMaterial = commonDefaultMaterial;
+                turnSignalScript.glowMaterial = hazardsLogic.glowMaterial;
 
                 Vector3[] turnSignalLeverPositions = new Vector3[3];
 
@@ -219,7 +219,13 @@ namespace LaikaAddons
                 }
 
                 signals[1].GetComponent<Light>().range = signals[3].GetComponent<Light>().range = 50;
-            }        
+            }
+
+            /*string[] joystickNames = Input.GetJoystickNames();
+            for (int i = 0; i < joystickNames.Length; i++)
+            {
+                Console.Instance.Log("Joystick " + i + ": " + joystickNames[i]);
+            }*/
         }
 
         public override void Update() // Default Unity Update() function
